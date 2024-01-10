@@ -5,12 +5,12 @@ import numpy as np
 import matplotlib.pyplot as plt 
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
-
+from sklearn.naive_bayes import MultinomialNB
 import seaborn as sns 
 import pickle 
 
 #import model 
-svm = pickle.load(open('SVC.pkl','rb'))
+naive_bayes_model = pickle.load(open('naive_bayes_model.pkl', 'rb'))
 
 #load dataset
 data = pd.read_csv('Bank Customer Churn Dataset.csv')
@@ -27,7 +27,7 @@ html_layout1 = """
 <br>
 """
 st.markdown(html_layout1,unsafe_allow_html=True)
-activities = ['SVM','Model Lain']
+activities = ['naive bayes','Model Lain']
 option = st.sidebar.selectbox('Pilihan mu ?',activities)
 st.sidebar.header('Data Pelanggan')
 
@@ -107,8 +107,8 @@ user_data = user_report()
 st.subheader('Data Pelangan')
 st.write(user_data)
 
-user_result = svm.predict(user_data)
-svc_score = accuracy_score(y_test,svm.predict(X_test))
+user_result = naive_bayes_model.predict(user_data)
+naive_bayes_score = accuracy_score(y_test, naive_bayes_model.predict(X_test))
 
 #output
 st.subheader('Hasil Prediksi:')
@@ -119,6 +119,6 @@ else:
 st.title(output)
 st.subheader('Model yang digunakan : \n'+option)
 st.subheader('Accuracy : ')
-st.write(str(svc_score*100)+'%')
+st.write(str(naive_bayes_score*100)+'%')
 
 
